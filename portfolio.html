@@ -18,31 +18,48 @@
     </div>
 
     <div class="body">
-        <div class="text-presentation">
-            <p>
-                As a future <strong>Entrepreneur</strong> in software technology development, my current 5-year plan is focused on building a successful technology
-                startup that solves real-world problems through innovative software solutions. In the first year, I plan to research and identify potential
-                markets and opportunities, and begin networking and building relationships with industry experts and potential customers.
-                In the next two to three years, I aim to launch my startup, build and launch a minimum viable product, secure funding, and scale the
-                business. During this time, I will focus on establishing a strong and talented team, expanding our customer base, and continuing to
-                improve and develop our software offerings. Finally, in the last year of my 5-year plan, I aim to have established a successful and
-                profitable technology company, with a reputation for delivering innovative and high-quality software solutions.
-            </p>
-            <p>
-                I am a highly motivated individual with a passion for technology and a strong drive to succeed. I have experience in software
-                development and a track record of delivering successful projects on time. I am a quick learner and always seeking new challenges to
-                push my limits.
-                
-                My communication skills, leadership experience, and ability to work well in a team make me an asset to any organization. I am
-                confident that I have the skills and drive to succeed as an entrepreneur, and I am eager to bring my unique perspectives and ideas to
-                the MEST program. I believe that I would be a valuable addition to the program and would make the most of the opportunity to grow
-                both personally and professionally.
-            </p>
-        </div>
+        <div id="projects-container">
 
+        </div>
         <div class="photo">
             <img src="./.images/1W7A7090.JPG" alt="The Senegalese Boy">
         </div>
     </div>
+
+    <script>
+
+        const apiUrl = `https://api.github.com/users/ikeecode/repos`;
+        // Fonction pour afficher les projets dans la page
+        async function displayProjects() {
+            try {
+                const response = await fetch(apiUrl);
+                const projects = await response.json();
+
+                const projectsContainer = document.getElementById('projects-container');
+
+                projects.forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+
+                    const projectTitle = document.createElement('div');
+                    projectTitle.className = 'project-title';
+                    projectTitle.textContent = project.name;
+
+                    const projectLink = document.createElement('a');
+                    projectLink.href = project.html_url;
+                    projectLink.textContent = 'Check on Github';
+
+                    projectCard.appendChild(projectTitle);
+                    projectCard.appendChild(projectLink);
+                    projectsContainer.appendChild(projectCard);
+                });
+            } catch (error) {
+                console.error('Erreur lors de la récupération des projets :', error);
+            }
+        }
+
+        // Appel de la fonction pour afficher les projets
+        displayProjects();
+</script>
 </body>
 </html>
